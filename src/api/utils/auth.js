@@ -1,47 +1,20 @@
-// src/utils/auth.js
-
-const TOKEN_KEY = 'access_token';
-const USER_KEY = 'user_info';
-
-/**
- * Lưu token và thông tin người dùng sau khi đăng nhập
- * @param {string} token 
- * @param {object} user 
- */
-export const login = (token, user) => {
-    localStorage.setItem(TOKEN_KEY, token);
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
+// Lưu thông tin người dùng vào localStorage
+export const login = (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
 };
 
-/**
- * Xoá token và thông tin người dùng khỏi localStorage
- */
+// Xoá thông tin người dùng
 export const logout = () => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem('user');
 };
 
-/**
- * Kiểm tra người dùng đã đăng nhập chưa
- * @returns {boolean}
- */
-export const isAuthenticated = () => {
-    return !!localStorage.getItem(TOKEN_KEY);
-};
-
-/**
- * Lấy token hiện tại
- * @returns {string|null}
- */
-export const getToken = () => {
-    return localStorage.getItem(TOKEN_KEY);
-};
-
-/**
- * Lấy thông tin người dùng hiện tại
- * @returns {object|null}
- */
-export const getUser = () => {
-    const user = localStorage.getItem(USER_KEY);
+// Lấy thông tin người dùng hiện tại
+export const getCurrentUser = () => {
+    const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
+};
+
+// Kiểm tra đã đăng nhập chưa
+export const isAuthenticated = () => {
+    return !!localStorage.getItem('user');
 };
