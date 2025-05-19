@@ -1,11 +1,14 @@
-// src/Components/common/CustomButton.jsx
 import React from 'react';
+import styles from './CustomButton.module.scss';
 
-const CustomButton = ({ text, onClick, type = 'button', className = 'btn btn-primary' }) => {
+const CustomButton = ({ type = 'button', label, onClick }) => {
     return (
-        <button type={type} onClick={onClick} className={className}>
-            {text}
+
+        <button type={type} className={styles.button} onClick={onClick}>
+            {label}
         </button>
+
+
     );
 };
 

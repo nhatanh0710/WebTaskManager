@@ -1,0 +1,27 @@
+.group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #2C3531;
+}
+
+.input {
+    height: 20px;
+    padding: 5px 12px;
+    border: 1px solid #116466;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+    background-color: #D1E8E2;
+    transition: border-color 0.3s;
+
+    &:focus {
+        border-color: #D9B08C;
+        background-color: #fff;
+    }
+}

@@ -1,0 +1,49 @@
+.heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3531;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.container {
+    max-width: 400px;
+    margin: 60px auto;
+    background-color: #d1e8e2;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(44, 53, 49, 0.3);
+}
+
+.title {
+    text-align: center;
+    color: #116466;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.error {
+    color: #ff0000;
+    background-color: #ffcb9a;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.redirect {
+    text-align: center;
+    margin-top: 20px;
+    color: #2c3531;
+
+    a {
+        color: #116466;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

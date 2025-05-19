@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { login } from '../api/utils/auth.js';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../api/utils/auth';
 import { Link } from 'react-router-dom';
+
+import InputField from '../components/Common/InputField.jsx';
+import CustomButton from '../components/Common/CustomButton.jsx';
+import FormWrapper from '../components/Common/FormWrapper.jsx';
+
+import styles from './Login.module.scss';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({ username: '', password: '' });
@@ -14,7 +20,6 @@ const LoginPage = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-
         const { username, password } = formData;
 
         if (!username || !password) {
@@ -22,7 +27,6 @@ const LoginPage = () => {
             return;
         }
 
-        // Giả lập đăng nhập thành công
         if (username === 'admin' && password === 'admin') {
             login({ username, token: 'fake-jwt-token' });
             navigate('/');
@@ -32,38 +36,34 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="container mt-5" style={{ maxWidth: '400px' }}>
-            <h2 className="text-center">Đăng nhập</h2>
-            {error && <div className="alert alert-danger">{error}</div>}
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label>Tên đăng nhập</label>
-                    <input
-                        type="text"
+        <>
+            <h1 className={styles.heading}>Hệ thống quản lý công việc</h1>
+            <FormWrapper>
+                <h2 className={styles.title}>Đăng nhập</h2>
+                {error && <div className={styles.error}>{error}</div>}
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <InputField
+                        label="Tên đăng nhập"
                         name="username"
-                        className="form-control"
                         value={formData.username}
                         onChange={handleChange}
+                        placeholder="Nhập tên đăng nhập"
                     />
-                </div>
-                <div className="mb-3">
-                    <label>Mật khẩu</label>
-                    <input
-                        type="password"
+                    <InputField
+                        label="Mật khẩu"
                         name="password"
-                        className="form-control"
+                        type="password"
                         value={formData.password}
                         onChange={handleChange}
+                        placeholder="Nhập mật khẩu"
                     />
-                </div>
-                <button type="submit" className="btn btn-primary w-100">
-                    Đăng nhập
-                </button>
-                <p className="mt-3">
-                    Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
-                </p>
-            </form>
-        </div>
+                    <CustomButton type="submit" label="Đăng nhập" />
+                    <p className={styles.redirect}>
+                        Chưa có tài khoản? <Link to="/register">Đăng ký</Link>
+                    </p>
+                </form>
+            </FormWrapper>
+        </>
     );
 };
 

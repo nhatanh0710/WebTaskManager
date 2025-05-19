@@ -1,6 +1,6 @@
 // src/Components/common/InputField.jsx
 import React from 'react';
-
+import styles from './InputField.module.scss'
 const InputField = ({
     label,
     type = 'text',
@@ -11,8 +11,8 @@ const InputField = ({
     required = false,
 }) => {
     return (
-        <div className="mb-3">
-            {label && <label className="form-label">{label}</label>}
+        <div className={styles.group}>
+            {label && <label className={styles.label}>{label}</label>}
             <input
                 type={type}
                 name={name}
@@ -20,9 +20,9 @@ const InputField = ({
                 onChange={onChange}
                 placeholder={placeholder}
                 required={required}
-                className="form-control"
+                className={styles.input}
             />
-        </div>
+        </div >
     );
 };
 

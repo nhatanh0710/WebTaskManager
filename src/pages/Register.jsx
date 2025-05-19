@@ -1,94 +1,87 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import InputField from '../components/Common/InputField.jsx';
+import CustomButton from '../components/Common/CustomButton.jsx';
+import FormWrapper from '../components/Common/FormWrapper.jsx';
+import styles from './Register.module.scss';
 
-const RegisterPage = () => {
+const Register = () => {
     const [formData, setFormData] = useState({
         username: '',
-        email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
     });
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleChange = e => {
+    const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const { username, email, password, confirmPassword } = formData;
 
-        if (!username || !email || !password || !confirmPassword) {
-            setError('Vui lòng điền đầy đủ thông tin');
+        const { username, password, confirmPassword } = formData;
+
+        if (!username || !password || !confirmPassword) {
+            setError('Vui lòng nhập đầy đủ thông tin');
             return;
         }
 
         if (password !== confirmPassword) {
-            setError('Mật khẩu không khớp');
+            setError('Mật khẩu xác nhận không khớp');
             return;
         }
 
-        // Giả lập đăng ký thành công
-        alert('Đăng ký thành công!');
+        // Lưu giả lập
+        localStorage.setItem('user', JSON.stringify({ username, password }));
         navigate('/login');
     };
 
     return (
-        <div className="container mt-5" style={{ maxWidth: '450px' }}>
-            <h2 className="text-center">Đăng ký</h2>
-            {error && <div className="alert alert-danger">{error}</div>}
+        <>
+        <h1 className={styles.heading}>Hệ thống quản lý công việc</h1>
+        <FormWrapper>
+            <h2 className={styles.title}>Đăng ký</h2>
+            {error && <div className={styles.error}>{error}</div>}
+
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label>Tên đăng nhập</label>
-                    <input
-                        type="text"
-                        name="username"
-                        className="form-control"
-                        value={formData.username}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        className="form-control"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label>Mật khẩu</label>
-                    <input
-                        type="password"
-                        name="password"
-                        className="form-control"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="mb-3">
-                    <label>Nhập lại mật khẩu</label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        className="form-control"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                    />
-                </div>
-                <button type="submit" className="btn btn-success w-100">
-                    Đăng ký
-                </button>
-                <p className="mt-3">
+                <InputField
+                    label="Tên đăng nhập"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    placeholder="Nhập tên đăng nhập"
+                    type="text"
+                />
+
+                <InputField
+                    label="Mật khẩu"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Nhập mật khẩu"
+                    type="password"
+                />
+
+                <InputField
+                    label="Xác nhận mật khẩu"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Nhập lại mật khẩu"
+                    type="password"
+                />
+
+                <CustomButton type="submit" label="Đăng ký" />
+
+                <p className={styles.redirect}>
                     Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
                 </p>
             </form>
-        </div>
+        </FormWrapper>
+        </>
     );
 };
 
-export default RegisterPage;
+export default Register;
